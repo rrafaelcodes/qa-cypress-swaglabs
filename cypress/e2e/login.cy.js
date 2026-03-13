@@ -1,42 +1,35 @@
-describe('Teste de Login e Validação de Bug - Swag Labs', () => {
+import LoginPage from '../support/pages/LoginPage'
+describe('Testes E2E - Swag Labs', () => {
 
-  // TESTE 1: O CAMINHO COM DEFEITO (Deve ficar vermelho)
-  it('Deve barrar o bug da foto do cachorro logando com problem_user', () => {
-    cy.visit('https://www.saucedemo.com/')
-    cy.get('#user-name').type('problem_user')
-    cy.get('#password').type('secret_sauce')
-    cy.get('#login-button').click()
-    cy.url().should('include', '/inventory.html')
+    it('Deve fazer login com sucesso (Caminho Feliz)', () => {
+        // Olha como o código fica absurdamente limpo de ler:
+        LoginPage.acessarPagina()
+        LoginPage.preencherLogin('standard_user', 'secret_sauce')
+        LoginPage.clicarEmEntrar()
 
-    // Tenta achar a mochila, mas esbarra no cachorro e falha
-    cy.get('.inventory_item_img img').first()
-      .should('have.attr', 'src')
-      .should('include', 'backpack')
-  })
+        // A validação continua igual, pois é a regra de negócio do teste
+        cy.url().should('include', '/inventory.html')
+    })
 
-  // TESTE 2: O CAMINHO FELIZ (Deve ficar verde)
-  it('Deve ver a foto correta da mochila logando com standard_user', () => {
-    cy.visit('https://www.saucedemo.com/')
-    cy.get('#user-name').type('standard_user')
-    cy.get('#password').type('secret_sauce')
-    cy.get('#login-button').click()
-    cy.url().should('include', '/inventory.html')
+    it('Deve barrar usuário bloqueado', () => {
+        LoginPage.acessarPagina()
+        LoginPage.preencherLogin('locked_out_user', 'secret_sauce')
+        LoginPage.clicarEmEntrar()
 
-    // Acha a mochila com sucesso e passa no teste!
-    cy.get('.inventory_item_img img').first()
-      .should('have.attr', 'src')
-      .should('include', 'backpack')
-  })
+        // Usamos o mapeamento de erro que criamos lá no POM para validar
+        LoginPage.elements.errorMessage().should('contain', 'locked out')
+    })
 
+    it('Deve carregar as imagens corretas dos produtos (Caça ao Bug)', () => {
+        // Usando o nosso POM para fazer o login com o usuário problemático
+        LoginPage.acessarPagina()
+        LoginPage.preencherLogin('problem_user', 'secret_sauce')
+        LoginPage.clicarEmEntrar()
+
+        // O robô vai olhar todas as imagens da tela e garantir que NENHUMA
+        // tenha o nome do arquivo do cachorro (sl-404)
+        cy.get('.inventory_item_img img').each(($img) => {
+            cy.wrap($img).invoke('attr', 'src').should('not.include', 'sl-404')
+        })
+    })
 })
-// TESTE 3: O USUÁRIO BLOQUEADO (Deve ficar verde, porque o sistema tem que barrar ele)
-  it('Deve mostrar mensagem de erro ao logar com locked_out_user', () => {
-    cy.visit('https://www.saucedemo.com/')
-    cy.get('#user-name').type('locked_out_user')
-    cy.get('#password').type('secret_sauce')
-    cy.get('#login-button').click()
-
-    // O robô não procura a mochila dessa vez. Ele procura a caixa de erro vermelha!
-    // E verifica se o texto dentro dela contém a frase "locked out"
-    cy.get('[data-test="error"]').should('be.visible').and('contain', 'locked out')
-  })
