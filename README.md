@@ -22,3 +22,8 @@ Este projeto possui uma esteira de Integração Contínua configurada. Toda vez 
 1. Clone este repositório: `git clone https://github.com/rrafaelcodes/qa-cypress-swaglabs.git`
 2. Instale as dependências: `npm install`
 3. Abra a interface do Cypress: `npx cypress open`
+## 📊 Metodologia Ágil e Reporte de Bugs
+
+A automação é apenas uma parte do processo de Qualidade. Para demonstrar a vivência em um ambiente ágil, os cenários de falha encontrados pelo robô foram documentados e classificados utilizando a metodologia Kanban.
+
+🔗 **[Acessar o Quadro Trello de QA] (https://trello.com/b/IzjfHBsl/swag-labs-qa)**
