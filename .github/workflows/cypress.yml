@@ -1,0 +1,18 @@
+name: Testes E2E com Cypress
+
+# Isso diz ao GitHub: "Rode o robô toda vez que alguém fizer um push (enviar código)"
+on: [push]
+
+jobs:
+  cypress-run:
+    # O GitHub vai ligar um computador com a versão mais recente do Ubuntu (Linux)
+    runs-on: ubuntu-latest
+
+    steps:
+      # Passo 1: O computador baixa o seu código do repositório
+      - name: Baixando o código
+        uses: actions/checkout@v4
+
+      # Passo 2: O computador usa a ação oficial do Cypress para instalar e rodar tudo
+      - name: Rodando o Cypress em modo invisível (Headless)
+        uses: cypress-io/github-action@v6
