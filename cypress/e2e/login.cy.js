@@ -32,4 +32,13 @@ describe('Testes E2E - Swag Labs', () => {
             cy.wrap($img).invoke('attr', 'src').should('not.include', 'sl-404')
         })
     })
+    it ('deve conseguir fazer logout', () => {
+        LoginPage.acessarPagina()
+        LoginPage.preencherLogin('standard_user', 'secret_sauce')
+        LoginPage.clicarEmEntrar()
+        LoginPage.ExecutarLogout()
+
+        // Validamos que voltamos para a página de login
+        cy.url().should('eq', 'https://www.saucedemo.com/')
+    })
 })

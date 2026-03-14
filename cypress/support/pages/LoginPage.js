@@ -5,7 +5,9 @@ class LoginPage {
         usernameInput: () => cy.get('[data-test="username"]'),
         passwordInput: () => cy.get('[data-test="password"]'),
         loginBtn: () => cy.get('[data-test="login-button"]'),
-        errorMessage: () => cy.get('[data-test="error"]')
+        errorMessage: () => cy.get('[data-test="error"]'),
+        menuBtn: () => cy.get('#react-burger-menu-btn'),
+        logoutLink: () => cy.get('#logout_sidebar_link')
     }
 
     // 2. Ações (O que o robô pode fazer nessa página)
@@ -21,7 +23,10 @@ class LoginPage {
     clicarEmEntrar() {
         this.elements.loginBtn().click()
     }
-}
-
+    ExecutarLogout() {
+        this.elements.menuBtn().click()
+        this.elements.logoutLink().click()
+    }
+  }
 // Exporta a classe para podermos usar nos arquivos de teste
 export default new LoginPage();
