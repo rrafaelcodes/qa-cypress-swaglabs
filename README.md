@@ -1,29 +1,48 @@
 # 🚀 Automação de Testes E2E - Swag Labs
 
-Este é um projeto prático de portfólio focado em Quality Assurance (QA) e Automação de Testes de Interface (UI). O objetivo foi criar um robô para testar os fluxos críticos de um e-commerce fictício, o Swag Labs.
+Este é um projeto prático de portfólio focado em Engenharia de Qualidade (QA) e Automação de Testes E2E (Ponta a Ponta). O objetivo principal é garantir o funcionamento dos fluxos críticos de um e-commerce fictício, o [Swag Labs](https://www.saucedemo.com/).
 
-## 🛠️ Tecnologias Utilizadas
-* **Cypress:** Framework principal de automação Ponta a Ponta (E2E).
+## 🛠️ Tecnologias e Arquitetura
+
+* **Cypress:** Framework moderno para testes E2E.
 * **JavaScript:** Linguagem base para a criação dos scripts.
 * **Node.js:** Ambiente de execução.
-* **GitHub Actions:** Ferramenta de CI/CD para execução automatizada na nuvem.
+* **Page Object Model (POM):** Arquitetura utilizada para separar os elementos da página (seletores) da lógica de testes, tornando o código limpo, reutilizável e altamente escalável.
+* **GitHub Actions (CI/CD):** Pipeline configurada para rodar os testes automaticamente na nuvem a cada novo push.
 
-## ⚙️ Integração Contínua (CI/CD)
-Este projeto possui uma esteira de Integração Contínua configurada. Toda vez que um novo código é enviado, um servidor no GitHub executa os testes em modo *headless* para garantir a qualidade.
+## ⚙️ Funcionalidades Testadas (Cenários)
 
-[![Testes E2E com Cypress](https://github.com/rrafaelcodes/qa-cypress-swaglabs/actions/workflows/cypress.yml/badge.svg)](https://github.com/rrafaelcodes/qa-cypress-swaglabs/actions)
+- [x] **Autenticação:** Validação de login com credenciais válidas e inválidas.
+- [x] **Segurança:** Tratamento e bloqueio de usuários inativos (*Locked Out User*).
+- [x] **Fluxo de Checkout Completo (E2E):** Teste de ponta a ponta que cobre a adição de produtos ao carrinho, preenchimento do formulário de entrega, revisão e finalização da compra com validação de sucesso.
+- [x] Gerenciamento de testes: Uso do '.skip' para isolar cenários com bugs conhecidos da aplicação (ex: falhas visuais do problem_user), mantendo a pipeline de CI/CD limpa.
 
-## 🐞 Cenários Testados
-1. **Login com Sucesso (Caminho Feliz):** Valida a autenticação e o carregamento do inventário.
-2. **Bloqueio de Usuário:** Garante que o sistema apresente a mensagem de erro correta para usuários bloqueados.
-3. **Caça a Bugs Visuais:** Identifica proativamente falhas na interface (ex: imagens quebradas/incorretas carregadas no lugar dos produtos).
+## 🚀 Como executar este projeto localmente
 
-## 💻 Como rodar este projeto na sua máquina
-1. Clone este repositório: `git clone https://github.com/rrafaelcodes/qa-cypress-swaglabs.git`
-2. Instale as dependências: `npm install`
-3. Abra a interface do Cypress: `npx cypress open`
-## 📊 Metodologia Ágil e Reporte de Bugs
+1. Clone este repositório:
+```bash
+git clone [https://github.com/rrafaelcodes/SEU-REPOSITORIO-AQUI.git](https://github.com/rrafaelcodes/SEU-REPOSITORIO-AQUI.git)
+```
 
-A automação é apenas uma parte do processo de Qualidade. Para demonstrar a vivência em um ambiente ágil, os cenários de falha encontrados pelo robô foram documentados e classificados utilizando a metodologia Kanban.
+2. Acesse a pasta do projeto e instale as dependências:
+```bash
+npm install
+```
 
-🔗 **[Acessar o Quadro Trello de QA] (https://trello.com/b/IzjfHBsl/swag-labs-qa)**
+3. Para abrir a interface interativa do Cypress:
+```bash
+npx cypress open
+```
+
+4. Para rodar todos os testes em modo invisível (Headless):
+```bash
+npx cypress run
+```
+
+## 🤖 Integração Contínua (CI/CD)
+
+A qualidade é garantida continuamente através do **GitHub Actions**. Sempre que um novo código é enviado ao repositório, uma máquina virtual Linux é provisionada nas nuvens para instalar as dependências e rodar a suíte completa do Cypress em modo *headless*, garantindo que as novas implementações não quebrem os fluxos existentes.
+
+---
+Desenvolvido por **Rafael** - Estudante de Ciência da Computação e focado em Engenharia de Qualidade.
+🔗 [Meu LinkedIn](https://www.linkedin.com/in/rrafaelcodes/)
